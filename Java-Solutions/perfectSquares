@@ -1,0 +1,26 @@
+//https://leetcode.com/explore/item/1371
+
+class Solution {
+    public int numSquares(int n) {
+        if(n<=3){
+            return n;
+        }
+        int temp=3;
+        int num=4;
+        int res=100001;
+        
+        while(num <=n){
+            int q = n/num;
+            int r= n%num;
+            if(r !=0){
+                q = q  + numSquares(r);
+            }
+            if(q<res) res=q;
+            
+            temp+=2;
+            num+=temp;
+        }
+        
+       return res; 
+    }
+}
