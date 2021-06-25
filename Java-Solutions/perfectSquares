@@ -1,7 +1,11 @@
 //https://leetcode.com/explore/item/1371
 
 class Solution {
+    HashMap<Integer,Integer> map = new HashMap<>();
     public int numSquares(int n) {
+        if(map.get(n)!=null){
+            return map.get(n);
+        }
         if(n<=3){
             return n;
         }
@@ -20,7 +24,7 @@ class Solution {
             temp+=2;
             num+=temp;
         }
-        
+       map.put(n,res); 
        return res; 
     }
 }
