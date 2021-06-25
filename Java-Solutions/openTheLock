@@ -1,0 +1,66 @@
+//https://leetcode.com/explore/learn/card/queue-stack/231/practical-application-queue/1375/
+
+class Solution {
+    
+   public int openLock(String[] deadends, String target) {
+
+		Queue<String> queue = new ArrayDeque<String>();
+		int count = 0;
+		HashSet<String> set = new HashSet<>();
+       HashSet<String> visited = new HashSet<>();
+       visited.add("0000");
+		for (String s : deadends) {
+			set.add(s);
+		}
+		queue.add("0000");
+
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+
+			while (size > 0) {
+				String val = queue.poll();
+
+				
+
+				if (set.contains(val)) {
+					size--;
+					continue;
+				}
+                
+                if (target.equals(val)) {
+					return count;
+				}
+        //for every digit add 2 non visited pwd string to queue. eg 0000 --> 1000, 9000, 0100, 0900, 0010, 0090, 0001, 0009 
+				for (int i = 0; i < 4; i++) {
+					char c = val.charAt(i);
+
+					String temp = val.substring(0, i) + (c == '9' 
+							? 0
+							: (c-'0' + 1) )+ val.substring(i + 1);
+                   
+                    if(!visited.contains(temp) && !set.contains(temp)){
+                         //System.out.println("temp: "+temp);
+                        queue.add(temp);
+                        visited.add(temp);
+                    }
+                    
+                    String temp1 = val.substring(0, i) +( c == '0'
+							? 9
+							: (c-'0' - 1) )+ val.substring(i + 1);
+				   
+                    if(!visited.contains(temp1) && !set.contains(temp1)){
+                        //System.out.println("temp1: "+temp1);	
+                        queue.add(temp1);
+                        visited.add(temp1);
+                    }
+                    
+                }
+
+				size--;
+			}
+            count++;
+		}
+
+		return -1;
+	}
+}
