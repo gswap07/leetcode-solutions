@@ -1,0 +1,27 @@
+//https://leetcode.com/explore/item/1392
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node == null) return node;
+        Map<Integer,Node> visited = new HashMap<>();
+        Node  res = new Node(node.val);
+        dfs(node,res,visited);
+        
+        return res;
+    }
+     
+    public void dfs(Node node, Node clone, Map<Integer,Node> visited){
+        if(visited.containsKey(node.val)){
+            return;
+        }
+        visited.put(clone.val,clone); 
+        for(Node t : node.neighbors){
+            Node temp = visited.get(t.val);
+            if(temp==null){
+               temp =  new Node(t.val);
+            } 
+            clone.neighbors.add(temp);
+            dfs(t,temp,visited);
+           
+        }
+    }
+}
