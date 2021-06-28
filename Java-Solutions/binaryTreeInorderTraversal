@@ -1,0 +1,43 @@
+//https://leetcode.com/explore/item/1383
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> r = new ArrayList<Integer>();
+        if(root==null) return r;
+        Stack<TreeNode> stack= new Stack<>();
+        Set<TreeNode> visited = new HashSet<>();
+        stack.push(root);
+        //visited.add(root);
+         //dfs with stack.   
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            
+            if(visited.contains(node)){
+                r.add(node.val);
+                continue;
+            }
+            
+            if(!visited.contains(node)){
+                visited.add(node);
+                
+            }
+            if(node.right!=null) stack.push(node.right);
+            stack.push(node);
+            if(node.left!=null) stack.push(node.left);
+        }            
+        
+        
+        
+        return r;
+    }
+    
+    //dfs with recursion 
+    public void getTree(TreeNode root, List t){
+        if(root == null){
+            return;
+        }
+        getTree(root.left, t);
+        t.add(root.val);
+        getTree(root.right, t);
+    }
+}
