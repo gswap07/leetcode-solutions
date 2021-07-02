@@ -1,0 +1,39 @@
+//https://leetcode.com/explore/learn/card/queue-stack/239/conclusion/1387/
+
+class MyStack {
+        int[] q = new int[100];
+        int head=-1;
+        int last=-1;
+    /** Initialize your data structure here. */
+    public MyStack() {
+    }
+    
+    /** Push element x onto stack. */
+    public void push(int x) {
+        if(head==-1){
+            q[++head]=x;
+            last++;
+        } else {
+            q[++last]=x;
+        }
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    public int pop() {
+        return q[last--];
+    }
+    
+    /** Get the top element. */
+    public int top() {
+        return q[last];
+    }
+    
+    /** Returns whether the stack is empty. */
+    public boolean empty() {
+        if(head==-1 || last<head){
+            return true;
+        }
+        
+        return false;
+    }
+}
