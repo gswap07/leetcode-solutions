@@ -1,0 +1,21 @@
+//https://leetcode.com/submissions/detail/516969302/?from=explore&item_id=1393
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        genSol(image, sr, sc, newColor,image[sr][sc]);   
+        return image;
+    }
+    
+    private void genSol(int[][] image, int sr, int sc, int newColor, int oldColor){
+        //image[sr][sc]==newColor keeps track of visted pixels. 
+        if(sr<0 || sc<0 || sr>=image.length || sc>=image[0].length || image[sr][sc]==newColor || image[sr][sc]!=oldColor){
+            return;
+        }
+        
+        image[sr][sc] = newColor;
+        genSol(image, sr+1, sc, newColor,oldColor);
+        genSol(image, sr-1, sc, newColor,oldColor);  
+        genSol(image, sr, sc+1, newColor,oldColor);   
+        genSol(image, sr, sc-1, newColor,oldColor);   
+    }
+}
