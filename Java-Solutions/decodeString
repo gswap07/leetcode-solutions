@@ -1,0 +1,39 @@
+//https://leetcode.com/explore/learn/card/queue-stack/239/conclusion/1379/
+
+class Solution {
+    public String decodeString(String s) {
+        Stack<Integer> count = new Stack<>();
+        Stack<String> result = new Stack<>();
+        String res="";
+        
+        for(int i=0;i<s.length();i++){
+           
+            if(s.charAt(i) =='['){
+                result.push(res);
+                res="";
+            } else if(s.charAt(i) ==']'){
+                StringBuilder sb = new StringBuilder();
+                sb.append(result.pop());
+                int loop = count.pop();
+                while(loop>0){
+                    sb.append(res);
+                    loop--;
+                }
+                res=sb.toString();
+                
+            } else if(Character.isDigit(s.charAt(i))){
+                int start = i, end=start+1;
+                while(Character.isDigit(s.charAt(end))){
+                    end++;
+                }
+                int loop = Integer.valueOf(s.substring(start,end));
+                count.push(loop);
+                i =end-1;
+            } else {
+                res+=s.charAt(i);
+            }
+        }
+        
+        return res;
+    }
+}
