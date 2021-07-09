@@ -1,0 +1,14 @@
+//https://leetcode.com/explore/interview/card/top-interview-questions-easy/97/dynamic-programming/566/
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int sum=0;
+        int max = Integer.MIN_VALUE;
+        
+        for(int i=0;i<nums.length;i++){
+            //decide if we want to start from i or add nums[i] to existing sum.
+                sum=Math.max(sum+nums[i],nums[i]);
+                max = Math.max(sum,max);
+        }
+        return max;
+    }
+}
