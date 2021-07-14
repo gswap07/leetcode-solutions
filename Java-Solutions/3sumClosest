@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/3sum-closest/
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        
+	        int diff = Integer.MAX_VALUE;
+            Arrays.sort(nums);
+            for(int i=0; i<nums.length;i++){
+                int start=i+1; int end=nums.length-1;
+                while(start<end){
+                    int s = nums[start]+nums[end]+nums[i];
+                    
+                    if(Math.abs(target-s)<Math.abs(diff)){
+                        diff = target-s;
+                    }
+                    
+                     if(s==target){
+                        return s;
+                    } else if(s<target){
+                        start++;
+                    } else{
+                        end--;
+                    }
+                }
+                    
+                
+            }
+        
+        
+	               
+	        return target-diff;
+    }
+}
