@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/minimum-window-substring/
+class Solution {
+    public String minWindow(String s, String t) {
+        HashMap<Integer, Integer> map = new HashMap();
+		String res = "";
+		for (char c : t.toCharArray()) {
+			int count = map.getOrDefault((int) c, 0);
+			map.put((int) c, count + 1);
+		}
+
+		int counter = map.keySet().size();
+		int begin = 0;
+		int end = 0;
+		int min = Integer.MAX_VALUE;
+		while (end < s.length()) {
+			int c = s.charAt(end);
+
+			if (map.containsKey(c)) {
+				int count = map.get(c);
+				map.put(c, --count);
+				if (count == 0) {
+					counter--;
+				}
+				
+			} 
+			end++;
+
+			while (counter == 0) {
+				
+				if (end-begin < min) {
+					res = s.substring(begin, end);;
+					min = res.length();
+				}
+
+				int ch = s.charAt(begin);
+				if (map.containsKey(ch)) {
+					int count =map.get(ch);
+					map.put(ch, ++count);
+					if(count>0) counter++;
+				}
+				begin++;
+			}
+		}
+		return res;
+    }
+}
