@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/reorder-data-in-log-files/
+
+class Solution {
+    public String[] reorderLogFiles(String[] logs) {
+        List<String> res = new ArrayList<String>();
+        for(String l : logs){
+            if(!Character.isDigit(l.charAt(l.length()-1))){
+                res.add(l);
+            }
+        }
+        
+        Collections.sort(res, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                int i1 = s1.indexOf(" ");
+                String t1 = s1.substring(i1+1);
+                
+                int i2 = s2.indexOf(" ");
+                String t2 = s2.substring(i2+1);
+                
+                if(t1.equals(t2)){
+                   s1 =  s1.substring(0,i1);
+                   s2 = s2.substring(0,i2);  
+                   return s1.compareTo(s2); 
+                }
+                
+                return t1.compareTo(t2);
+            }
+        });  
+               
+        for(String l : logs){
+            if(Character.isDigit(l.charAt(l.length()-1))){
+                res.add(l);
+            }
+        } 
+     return res.toArray(logs);       
+    }
+}
