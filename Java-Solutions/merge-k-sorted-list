@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/merge-k-sorted-lists/
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        
+        for(ListNode node : lists){
+                while(node!=null){
+                    pq.add(node.val);
+                    node=node.next;
+                }
+        }
+        
+        ListNode res = new ListNode();
+        ListNode temp = res;
+        while(!pq.isEmpty()){
+            res.next =new ListNode( pq.poll());
+            res = res.next;
+        }
+        
+        return temp.next;
+    }
+}
