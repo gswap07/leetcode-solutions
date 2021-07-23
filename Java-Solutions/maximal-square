@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/maximal-square/solution/
+
+class Solution {
+    public boolean isValid(String s) {
+        if(s.length() ==1) return false;
+        //Stack<Character> round = new Stack<>();
+        //Stack<Character> curly = new Stack<>();
+        Stack<Character> stack = new Stack<>();
+        boolean res=false;
+        for(int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(c=='(' || c=='{' || c=='['){
+                stack.push(c);
+            } else {
+                if(stack.isEmpty()){
+                    return false;
+                }
+                
+                if(c == ')' && stack.peek()=='(' || c == ']' && stack.peek()=='[' || c == '}' && stack.peek()=='{'){
+                    stack.pop();
+                } else{
+                    return false;
+                }
+            }
+        }
+        
+        if(!stack.isEmpty()){
+            return false;
+        }
+            
+            return true;
+    }
+}
