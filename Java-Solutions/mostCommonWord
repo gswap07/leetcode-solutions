@@ -1,0 +1,28 @@
+//https://leetcode.com/explore/interview/card/amazon/76/array-and-strings/2973/
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        HashSet<String> ban = new HashSet();
+        paragraph = paragraph.toLowerCase();
+        //replace all char except [a-zA-Z0-9] with space
+        paragraph = paragraph.replaceAll("[^a-zA-Z0-9 ]"," ");
+        for(String s : banned){
+            ban.add(s);
+        }
+        int max = Integer.MIN_VALUE;
+        String res="";
+        //str.split("\\s+") is equivalent to str.split("\\s+", 0). It means split the string for as many times as possible, and remove             empty result "". So trim() is not necessary
+        String[] words = paragraph.split("\\s+");
+        HashMap<String,Integer> map =new HashMap();
+        for(String word : words){
+            if(!ban.contains(word)){
+                int count = map.getOrDefault(word,0);
+                map.put(word,++count);
+                if(count>max){
+                    res = word;
+                    max = count;
+                }
+            }
+        }
+        return res;
+    }
+}
