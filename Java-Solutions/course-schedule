@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/course-schedule/
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if(prerequisites.length==0){
+            return true;
+        }
+        
+        HashMap<Integer,List<Integer>> map = new HashMap();
+        
+        for(int i=0;i<numCourses;i++){
+            List<Integer> list = new ArrayList();
+            map.put(i,list);
+        }
+        
+        for(int[] pre : prerequisites){
+            if(pre[0] == pre[1]) return false;
+            map.get(pre[0]).add(pre[1]);
+        }
+        HashSet<Integer> visited = new HashSet();
+        Stack<Integer> stack = new Stack();
+        
+        
+        for(int key : map.keySet()){
+            if(!dfs(key,visited,map)) return false;
+        }
+        return true;
+    }
+    
+    public boolean dfs(int node, HashSet<Integer> visited, HashMap<Integer,List<Integer>> map){
+        if(visited.contains(node)) return false;
+        //reached dead end in the path
+        if(map.get(node).size()==0) return true;
+        
+        visited.add(node);
+        for(int i : map.get(node)){
+            if(!dfs(i,visited,map)) return false;
+        }
+        //reset visited if there is not loop found in the dfs.
+        visited.remove(node);
+        map.put(node,new ArrayList<Integer>());
+        return true;
+        
+    }
+}
